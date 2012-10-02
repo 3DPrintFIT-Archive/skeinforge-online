@@ -1,156 +1,132 @@
+<?php
+function putForm() {
+	echo "<p>Upload your STL file (<a href=\"http://fabmetheus.crsndoo.com/wiki/index.php/Skeinforge#File_Formats\" title=\"Supported filetypes\" >or other</a>) and watch the magic.</p>";
+	echo "<form method=\"post\" enctype=\"multipart/form-data\">";
+	echo "	<p><input type=\"file\" name=\"file\" id=\"file\" /> <select name=\"profile\" id=\"profile\"><option value=\".none\" selected=\"selected\">Choose a profile...</option>";
+	if ($handle = opendir('../prefdir/profiles/extrusion')) {
+		$profiles = array();
+		while ($profiles[] = readdir($handle));
+		closedir($handle);
+		sort($profiles);
+		foreach ($profiles as $profile) {
+			if ((substr($profile,0,1) != ".") && ($profile != "")) {
+				echo "<option value=\"".$profile."\">".$profile."</option>";
+			}
+		}
+	} else {
+		echo "	<p><strong>Error:</strong> Cannot open profiles dir.</p>";
+	}
+	echo "</select> <input type=\"submit\" name=\"submit\" value=\"Upload\" /></p>";
+	echo "</form>";
+}
+
+function dwnLink($basename) {
+	if (file_exists("files/".$basename.'_export.gcode')) {
+		echo "<p><strong>Download:</strong> <a href=\"files/".$basename ."_export.gcode\">".$basename ."_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>";
+	} else {
+		echo "<p><strong>Error:</strong> The process ended without gcode, see the log for more information.</p>";
+	}
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Welcome to OpenShift</title>
-  <style>
-  html { 
-  background: black; 
-  }
-  body {
-    background: #333;
-    background: -webkit-linear-gradient(top, black, #666);
-    background: -o-linear-gradient(top, black, #666);
-    background: -moz-linear-gradient(top, black, #666);
-    background: linear-gradient(top, black, #666);
-    color: white;
-    font-family: "Helvetica Neue",Helvetica,"Liberation Sans",Arial,sans-serif;
-    width: 40em;
-    margin: 0 auto;
-    padding: 3em;
-  }
-  a {
-    color: white;
-  }
-
-  h1 {
-    text-transform: capitalize;
-    -moz-text-shadow: -1px -1px 0 black;
-    -webkit-text-shadow: 2px 2px 2px black;
-    text-shadow: -1px -1px 0 black;
-    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
-    background: #CC0000;
-    width: 22.5em;
-    margin: 1em -2em;
-    padding: .3em 0 .3em 1.5em;
-    position: relative;
-  }
-  h1:before {
-    content: '';
-    width: 0;
-    height: 0;
-    border: .5em solid #91010B;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    position: absolute;
-    bottom: -1em;
-    left: 0;
-    z-index: -1000;
-  }
-  h1:after {
-    content: '';
-    width: 0;
-    height: 0;
-    border: .5em solid #91010B;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    position: absolute;
-    bottom: -1em;
-    right: 0;
-    z-index: -1000;
-  }
-  h2 { 
-    margin: 2em 0 .5em;
-    border-bottom: 1px solid #999;
-  }
-
-  pre {
-    background: black;
-    padding: 1em 0 0;
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    border-radius: 1em;
-    color: #9cf;
-  }
-
-  ul { 
-    margin: 0; 
-    padding: 0;
-  }
-  li {
-    list-style-type: none;
-    padding: .5em 0;
-  }
-
-  .brand {
-    display: block;
-    text-decoration: none;
-  }
-  .brand .brand-image {
-    float: left;
-    border: none;
-  }
-  .brand .brand-text {
-    float: left;
-    font-size: 24px;
-    line-height: 24px;
-    padding: 4px 0;
-    color: white;
-    text-transform: uppercase;
-  }
-  .brand:hover,
-  .brand:active {
-    text-decoration: underline;
-  }
-
-  .brand:before,
-  .brand:after {
-    content: ' ';
-    display: table;
-  }
-  .brand:after {
-    clear: both;
-  }
-  </style>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Skeinforge online</title>
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-  <a href="http://openshift.com" class="brand">
-    <img class="brand-image"
-      alt="OpenShift logo"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAgCAYAAABU1PscAAAAAXNSR0IArs4c6QAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAARHgAAER4B27UUrQAABUhJREFUWMPFWFlsVGUU/s5/70zbaSltA7RQpJ2lC9CFkQkWIgSJxkAhRA0JCYFq4hPG6JsoGKNCtPigxqhvGlPAuGIaE4igNaElbIW2yNL2tkOtTYGWCqWF2e79fCh7p1Bmpnge/3vuOef7z/nPJiTxMHS6pMRuu6YqFNTTAJYSyAU4GZB0AH2AGCANAfc5Qrba6T3HrmECScYLwCioSIcV2AjidQDZ45Q/LJRaWrLV03X89P8GwHB5XwG4DcDkGPWEBKimNrzN094efGQAzjm9GWHFr4R4LiHKgFaSL3r8zYcmHEBbkW+KFo7UEyhKsNeHlMgyV8eJo4kQpqId9ub6HCoc+XWcxl8lcBTATwDax8GfZtHa054/f/bNg8ZcnyOhHjBc834E8MJ9/vML8aYZQX1hd1PP3WFXkhMRfYkIlpOoGomc0WRRTnch+XAQWG2KTNJNLbuy68C/cQMwXOWrAKkdgz8A8kMdg9X5fn/gQcI7POXLaMk3AGbe/P8SbF0D1KcGRGXpIJJpIQkWBHhnsf/Ie3GF0DmnMxmQT8bg7RellXr8ze+Ox3gAcBvNf+iUUhH5FODLSvScAerDGpiVxTAyGUYKzICA34nCwbhDyHB7N4L8PAofhVzh9jfvjffR/ZZTnupIsR8G0C9EjW7Tfnii/dBgrPL0u83kmjHy33Z3Z/zG97uKi7xpWA8GHZpE1mcZRne8MvXblfbxqQAWR+Fp+mdW5hZPjAqu5JVlhrTwOgrXi2ABbjjchF4FYGvi0qhprgagjYod4OeldXWRWBUEtdBjEH4mwIJ7vF2V4Dqgot0+NEFdPAqmdZ5tAXA8Slx6LrpKsxMHQJge5ft1v0oe2OOu+PZ39+LCOFqImqiXo8JzAeBkXlnmnoKK9LgACJl2R9gELsHW1saUwKCpnbIoa8UMTokVgGXJmSjHkfNWUlWDy9d6USVdyoiEF8b1iElxQKHuPG1D/bCtVEBhCiykMQQFgCK2mN2sSx+tkdcbhGq7wKSkK9RnmsCG2xVSLsflAR1S6eloWhawtF8yGJGskSJDBdQR8pIjZMXcfFmm1gOg2lRaSRdT1AD1PBPQbCAyxcRMifCpc41HEtILNbh9s8SSvYTUmBp2LDGOdCOB1OD0XbeByWliwY5bugc9nU2T4wqhCx7PNAV9bSGwARp3TzVaP0j09GQUzJubLUgefY3SEHMh63MVr4FIlYL+7C1AlCwAmxM+/plYy6hhgN2xp1HBawAr72krnH3uoicTaXyHx7uIwKZoT0QhUhszAAI7x7ivL0a60/jp77yyTFrWt6N6rxE99c7OkxdiBhC2y/cAorXHpama/aNG8dkOO32b6p3zTzXmeysfPu4LkkKafA3IrGjfCfPtuGfiPlfx+xBsuWtwpa3zIuy2YaoZ5o0eSQc5TVnb53aeeAuk9eBtRvkqUH0MoTsqA7nL429eFzeA3lyfQ08eaiNgCrjTYNozQ1S+WyUfQCosTLqZ+oiDUNwhggPujpZTuCMXGwUV6cJgKYnNIJffR3df2NLLZ5871puQrUR//pzpU7rOnAfJP53eDELrsoPpk4RIGRn5xqIBAAdBOCAoBjBjPJsJUdZSt9HSOGFrld5cn2M4KbwfkIUJzqYhQlYWdJ7YN2FrFQCY3nPsmk61AuSuRNYyUdaiRBk/7tViR37Zcir1JYC8WNshgjWWPfhq0dmzVx/5bhQAWnLKU1Md8gZHOsjxAgmD2GEKq4s6m1sxASQPu16HiBh53goqPg9ac0TEcwNQEOBlQAZEcMgC94dDZt2c7r8GMIH0H43ZRDC51RVCAAAAAElFTkSuQmCC">
-    <div class="brand-text"><strong>Open</strong>Shift</div>
-  </a>
-  <h1>
-    Welcome to OpenShift
-  </h1>
-  <p>
-    Place your application here
-  </p>
-  <p>
-    In order to commit to your new project, go to your projects git repo (created with the rhc app create command).  Make your changes, then run:
-  </p>
-  <pre>
-    git commit -a -m 'Some commit message'
-    git push
-  </pre>
-  <p>
-    Then reload this page.
-  </p>
-  
-  <h2>
-    What's next?
-  </h2>
-  <ul>
-    <li>
-      Why not visit us at <a href="http://openshift.redhat.com">http://openshift.redhat.com</a>, or
-    </li>
-    <li>
-      You could get help in the <a href="http://www.redhat.com/openshift">OpenShift forums</a>, or
-    </li>
-    <li>
-      You're welcome to come chat with us in our IRC channel at #openshift on freenode.net
-    </li>
-  </ul>
+	<a href="/" class="brand">
+		<img class="brand-image" alt="3D Print Lab logo" src="logo.png">
+		<div class="brand-text"><strong>Skeinfogre</strong>online</div>
+	</a>
+	<h1>Convert your 3D model into G-Code</h1>
+	<?php
+	if ($_FILES["file"]["tmp_name"] != "") {
+		$allowedExts = array("stl", "gts", "obj", "bfb");
+		$extension = strtolower(end(explode(".", $_FILES["file"]["name"])));
+		$profile = $_POST["profile"];
+		if ($_FILES["file"]["error"] > 0) {
+			echo "<p><strong>Error:</strong> ".$_FILES["file"]["error"]."</p>";
+			putForm();
+		} elseif (!in_array($extension, $allowedExts)) {
+			echo "<p><strong>Error:</strong> Not a <a href=\"http://fabmetheus.crsndoo.com/wiki/index.php/Skeinforge#File_Formats\" title=\"Supported filetypes\" >supported file</a>.</p>";
+			putForm();
+		} elseif ($profile == ".none") {
+			echo "<p><strong>Error:</strong> Select a profile!</p>";
+			putForm();
+		} else {
+			$counter = 0;
+			$basename = str_replace(" ","_",substr($_FILES["file"]["name"],0,-strlen($extension))).$counter;
+			$filename = $basename.".".$extension;
+			while (file_exists("files/".$filename)) {
+				$counter++;
+				$basename = str_replace(" ","_",substr($_FILES["file"]["name"],0,-strlen($extension))).$counter;
+				$filename = $basename.".".$extension;
+			}
+			move_uploaded_file($_FILES["file"]["tmp_name"],"files/".$filename);
+			$whoami = exec('whoami');
+			$fullpath = 'files/';
+			exec('cp -ar ../prefdir '.$fullpath.$basename.'.dir');
+			exec('echo -e "Profile Selection:\t'.$profile.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion.csv');
+			$skeinforge = 'python ../libs/skeinforge_application/skeinforge.py -p '.$fullpath.$basename.'.dir';
+			exec($skeinforge.' '.$fullpath.$filename.' > '.$fullpath.$basename.'.log 2>&1 & echo $! > '.$fullpath.$basename.'.pid',$output,$exitcode);
+			echo '<pre>';
+			echo '$ skeinforge '.$filename."\n";
+			echo '</pre>';
+			echo '<script type="text/javascript">'."\n";
+			echo '<!--'."\n";
+			echo 'window.location = "/?job='.$basename.'.'.$extension.'";'."\n";
+			echo '//-->'."\n";
+			echo '</script>'."\n";
+			echo "<noscript><p><strong>Continue:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></noscript>"."\n";
+		}
+	} elseif($_GET["job"] != "") {
+		if(file_exists("files/".$_GET["job"])) {
+			$basename = $_GET["job"];
+			$extension = strtolower(end(explode(".", $basename)));
+			$basename = substr($basename,0,-strlen($extension)-1);
+			$pid = trim(file_get_contents("files/".$basename.'.pid'));
+			$grep = trim(exec('ps -eo pid | sed -e \'s/^[[:space:]]*//\' | grep \'^'.$pid.'$\''));
+			if ($grep != $pid) {
+				dwnLink($basename);
+			}
+			$whoami = exec('whoami');
+			$fullpath = '/var/lib/stickshift/'.$whoami.'/app-root/runtime/repo/';
+			echo '<pre>';
+			echo '$ skeinforge '.$basename.".".$extension."\n";
+			$logtext = file_get_contents("files/".$basename.'.log');
+			echo str_replace($fullpath,"",$logtext);
+			echo '</pre>';
+			
+			if ($grep != $pid) {
+				dwnLink($basename);
+			} else {
+				echo '<script type="text/javascript">'."\n";
+				echo '<!--'."\n";
+				echo 'setTimeout(function() {location.reload(true);},3000);'."\n";
+				echo '//-->'."\n";
+				echo '</script>'."\n";
+				echo "<noscript><p><strong>Continue:</strong> <a href=\"/?job=".$basename."\">".$basename."</a></p></noscript>"."\n";
+			}
+		} else {
+			echo "<p><strong>Error:</strong> Bad job.</p>";
+		}
+	} else {
+		putForm();
+		?>
+	<h2>Warning</h2>
+	<p>This service is BETA! It is provided as is and without any express or implied warranties, including, without limitation, the implied warranties of merchantability and fitness for a particular purpose. Uploaded files aren't protected, anyone can steel them.</p>
+	<h2>TODO</h2>
+	<ul>
+		<li>Support multiply</li>
+		<li>Support user uploaded profiles</li>
+		<li>Security :P</li>
+		<li>Ajax?</li>
+	</ul>
+	<?php } ?>
+	<p><a href="http://fabmetheus.crsndoo.com/wiki/index.php/Skeinforge">Skeinforge</a> &copy; Enrique Perez (AGPLv3)<br />This service &copy; <a href="http://hroncok.cz/">Miro Hrončok</a>, <a href="https://3dprint.fit.cvut.cz/">3D Print Lab FIT CTU</a></p>
 </body>
 </html>
