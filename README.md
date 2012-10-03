@@ -6,7 +6,7 @@ Online skeinforge running on OpenShift. Very dirty PHP code, we were just wonder
 Pushing
 =======
 
-You can push simulatously to GitHub and OpenShift. Copy the gitconfig file to your git config:
+You can push simultaneously to GitHub and OpenShift. Copy the gitconfig file to your git config:
 
     cp gitconfig .git/config
 
