@@ -3,6 +3,8 @@ skeinforge-online
 
 Online skeinforge running on OpenShift. Very dirty PHP code, we were just wondering, if it works.
 
+The app itself can be found on https://skeinforge-hroncok.rhcloud.com/
+
 Pushing
 =======
 
