@@ -1,0 +1,9 @@
+Format is tab separated skeinforge settings.
+_Name                          	Value
+WindowPosition	417+65
+Open File for Skeinforge	/media/psf/Home/POI/RepRap/PrusaMendel/metric-prusa-lm8uu/prusa-plate-1.stl
+analyze	False
+craft	True
+help	False
+meta	False
+profile	False
