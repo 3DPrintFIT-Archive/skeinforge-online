@@ -1,0 +1,17 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "all"]
+	url = git@github.com:3DprintFIT/skeinforge-online.git
+	url = ssh://f52a1f8774514090a8f72131741fee7f@skeinforge-hroncok.rhcloud.com/~/git/skeinforge.git/
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = git@github.com:3DprintFIT/skeinforge-online.git
+[remote "openshift"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = ssh://f52a1f8774514090a8f72131741fee7f@skeinforge-hroncok.rhcloud.com/~/git/skeinforge.git/
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
