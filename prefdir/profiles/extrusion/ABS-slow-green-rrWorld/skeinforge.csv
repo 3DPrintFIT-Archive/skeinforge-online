@@ -1,9 +1,0 @@
-Format is tab separated skeinforge settings.
-_Name                          	Value
-WindowPosition	417+65
-Open File for Skeinforge	/home/robot/Downloads/theonering.stl
-analyze	False
-craft	True
-help	False
-meta	False
-profile	False

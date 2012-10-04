@@ -1,9 +1,0 @@
-Format is tab separated skeinforge settings.
-_Name                          	Value
-WindowPosition	755+135
-Open File for Skeinforge	/home/reprap/Desktop/BabyPRUSA soucastky/drzak elektroniky/drzak_elektroniky_vrch.stl
-analyze	False
-craft	True
-help	False
-meta	False
-profile	False
