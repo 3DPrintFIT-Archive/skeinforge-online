@@ -23,11 +23,11 @@ function checkEnd(job) {
 		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	textfile.onreadystatechange=function() {
-		if (textfile.readyState==4 && textfile.status==200 && textfile.responseText[0]=="e"){
+		if (textfile.readyState==4 && textfile.status==200){
 			willreturn = 1;
 		}
 	}
-	textfile.open("GET","files/"+job+".exit",true);
+	textfile.open("HEAD","files/"+job+".exit",true);
 	textfile.send();
 	return willreturn;
 }
@@ -54,7 +54,7 @@ function dwnLink(job) {
 				clearInterval(refreshInterval);
 			}
 		}
-		textfile.open("GET","files/"+job+"_export.gcode",true);
+		textfile.open("HEAD","files/"+job+"_export.gcode",true);
 		textfile.send();
 	}
 }
