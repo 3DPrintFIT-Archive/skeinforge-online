@@ -3,8 +3,14 @@
 # is deployed and started.  This script gets executed directly, so 
 # it could be python, php, ruby, etc.
 
-userid=`whoami`
-
-cd /var/lib/stickshift/$userid/app-root/runtime/repo/php/
+# Create files dir
+cd $HOME/app-root/runtime/repo/php/
 mkdir files
 chmod 777 files
+
+# Change profiles
+cd $HOME/app-root/runtime/repo/prefdir/profiles
+grep -v '^Profile Selection:' extrusion.csv > extrusion.csv2
+mv extrusion.csv2 extrusion.csv
+find extrusion -type f -name multiply.csv -exec $HOME/app-root/runtime/repo/misc/rmmultiply.sh {} \;
+
