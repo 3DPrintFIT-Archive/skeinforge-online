@@ -53,8 +53,8 @@ function dwnLink(job) {
 				if ((textfile.status == 200) || (textfile.status == 404)) {
 					document.getElementById("topDwnLink").innerHTML=linkHTML;
 					document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-					clearInterval(dwnInterval);
-					clearInterval(refreshInterval);
+					//clearInterval(dwnInterval);
+					//clearInterval(refreshInterval);
 				}
 			}
 		}
