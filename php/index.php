@@ -51,13 +51,14 @@ function putForm() {
 		} else {// code for IE6, IE5
 			xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		if (xmlhttp.readyState==4 && xmlhttp.status == 200){
-			var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n";
-			document.getElementById("topDwnLink").innerHTML=linkHTML;
-			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-			document.write("hura");
-			clearInterval(dwnInterval);
-			clearInterval(refreshInterval);
+		xmlhttp.onreadystatechange=function() {
+			if (xmlhttp.readyState==4 && xmlhttp.status == 200){
+				var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n";
+				document.getElementById("topDwnLink").innerHTML=linkHTML;
+				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
+				clearInterval(dwnInterval);
+				clearInterval(refreshInterval);
+			}
 		}
 		xmlhttp.open("GET","files/"+job+"_export.gcode",true);
 		xmlhttp.send();
