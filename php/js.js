@@ -17,6 +17,7 @@ function loadLog(job,ext) {
 function checkEnd(job) {
 	document.getElementById("infobox").innerHTML="Checking end of the job";
 	var textfile;
+	var retvalue = 0;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 		textfile=new XMLHttpRequest();
 	} else {// code for IE6, IE5
@@ -27,7 +28,7 @@ function checkEnd(job) {
 			document.getElementById("infobox").innerHTML="The file exists";
 			if (textfile.responseText[0] == "e") {
 				document.getElementById("infobox").innerHTML="The file contains end mark";
-				return 1;
+				retvalue = 1;
 			} else {
 				document.getElementById("infobox").innerHTML="Doesn't contain end mark";
 			}
@@ -37,8 +38,7 @@ function checkEnd(job) {
 	}
 	textfile.open("GET","files/"+job+".exit",true);
 	textfile.send();
-	document.getElementById("infobox").innerHTML="Returning zero";
-	return 0;
+	return retvalue;
 }
 
 function dwnLink(job) {
