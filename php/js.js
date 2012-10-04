@@ -34,7 +34,7 @@ function checkEnd(job) {
 			document.getElementById("infobox").innerHTML="Doesn't contain end mark";
 		}
 	} else {
-		document.getElementById("infobox").innerHTML="File not present/ready";
+		document.getElementById("infobox").innerHTML="File files/"+job+".exit not present/ready";
 	}
 	//document.getElementById("infobox").innerHTML="Returning "+retvalue;
 	return retvalue;
