@@ -25,7 +25,7 @@ function checkEnd(job) {
 	}
 	textfile.open("GET","files/"+job+".exit",true);
 	textfile.send();
-	if (textfile.readyState==4) {
+	//if (textfile.readyState==4) {
 		if (textfile.status == 200) {
 			document.getElementById("infobox").innerHTML="The file exists";
 			if (textfile.responseText[0] == "e") {
@@ -37,9 +37,9 @@ function checkEnd(job) {
 		} else {
 			document.getElementById("infobox").innerHTML="File not present";
 		}
-	} else {
-		document.getElementById("infobox").innerHTML="File not ready";
-	}
+	//} else {
+	//	document.getElementById("infobox").innerHTML="File not ready";
+	//}
 	//document.getElementById("infobox").innerHTML="Returning "+retvalue;
 	return retvalue;
 }
