@@ -37,7 +37,7 @@ function dwnLink($basename) {
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<script>
-	function loadLog() {
+	function loadLog(job) {
 		var xmlhttp;
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
@@ -46,10 +46,10 @@ function dwnLink($basename) {
 		}
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-				document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				document.getElementById("terminal").innerHTML=xmlhttp.responseText;
 			}
 		}
-		xmlhttp.open("GET","files/<?php echo substr($_GET["job"],0,-strlen(end(explode(".",$_GET["job"])))-1) ?>.log",true);
+		xmlhttp.open("GET","files/"+job+".log",true);
 		xmlhttp.send();
 	}
 	</script>
@@ -91,7 +91,7 @@ function dwnLink($basename) {
 			exec('echo -e "Profile Selection:\t'.$profile.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion.csv');
 			$skeinforge = 'python ../libs/skeinforge_application/skeinforge.py -p '.$fullpath.$basename.'.dir';
 			exec($skeinforge.' '.$fullpath.$filename.' > '.$fullpath.$basename.'.log 2>&1 & echo $! > '.$fullpath.$basename.'.pid',$output,$exitcode);
-			echo '<pre>';
+			echo '<pre id="terminal">';
 			echo '$ skeinforge '.$filename."\n";
 			echo '</pre>';
 			echo '<script type="text/javascript">'."\n";
@@ -113,7 +113,7 @@ function dwnLink($basename) {
 			}
 			$whoami = exec('whoami');
 			$fullpath = '/var/lib/stickshift/'.$whoami.'/app-root/runtime/repo/';
-			echo '<pre>';
+			echo '<pre id="terminal">';
 			echo '$ skeinforge '.$basename.".".$extension."\n";
 			$logtext = file_get_contents("files/".$basename.'.log');
 			echo str_replace($fullpath,"",$logtext);
@@ -124,10 +124,10 @@ function dwnLink($basename) {
 			} else {
 				echo '<script type="text/javascript">'."\n";
 				echo '<!--'."\n";
-				echo 'setTimeout(function() {location.reload(true);},3000);'."\n";
+				echo 'setTimeout(function() {loadLog("'.$basename.'");},1000);'."\n";
 				echo '//-->'."\n";
 				echo '</script>'."\n";
-				echo "<noscript><p><strong>Continue:</strong> <a href=\"/?job=".$basename."\">".$basename."</a></p></noscript>"."\n";
+				echo "<noscript><p><strong>Continue:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></noscript>"."\n";
 			}
 		} else {
 			echo "<p><strong>Error:</strong> Bad job.</p>";
