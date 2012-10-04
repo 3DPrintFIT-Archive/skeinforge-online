@@ -44,13 +44,13 @@ function dwnLink(job) {
 		textfile.onreadystatechange=function() {
 			if (textfile.readyState==4 && textfile.status == 200){
 				var linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
+				clearInterval(dwnInterval);
 			} else {
 				linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
 			}
 			if (linkHTML!="") {
 				document.getElementById("topDwnLink").innerHTML=linkHTML;
 				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-				clearInterval(dwnInterval);
 				clearInterval(refreshInterval);
 			}
 		}
