@@ -36,8 +36,8 @@ function dwnLink($basename) {
 	<title>Skeinforge online</title>
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
-	<script>
-	function loadLog(job) {
+	<script type="text/javascript">
+	function loadLog(job,ext) {
 		var xmlhttp;
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
@@ -46,7 +46,7 @@ function dwnLink($basename) {
 		}
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-				document.getElementById("terminal").innerHTML=xmlhttp.responseText;
+				document.getElementById("terminal").innerHTML="$ skeinforge "+job+"."+ext+"\n"+xmlhttp.responseText;
 			}
 		}
 		xmlhttp.open("GET","files/"+job+".log",true);
@@ -90,48 +90,25 @@ function dwnLink($basename) {
 			exec('cp -ar ../prefdir '.$fullpath.$basename.'.dir');
 			exec('echo -e "Profile Selection:\t'.$profile.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion.csv');
 			$skeinforge = 'python ../libs/skeinforge_application/skeinforge.py -p '.$fullpath.$basename.'.dir';
-			exec($skeinforge.' '.$fullpath.$filename.' > '.$fullpath.$basename.'.log 2>&1 & echo $! > '.$fullpath.$basename.'.pid',$output,$exitcode);
-			echo '<pre id="terminal">';
-			echo '$ skeinforge '.$filename."\n";
-			echo '</pre>';
-			echo '<script type="text/javascript">'."\n";
-			echo '<!--'."\n";
-			echo 'window.location = "/?job='.$basename.'.'.$extension.'";'."\n";
-			echo '//-->'."\n";
-			echo '</script>'."\n";
-			echo "<noscript><p><strong>Continue:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></noscript>"."\n";
+			exec($skeinforge.' '.$fullpath.$filename.' > '.$fullpath.$basename.'.log 2>&1 & echo $? > '.$fullpath.$basename.'.exit',$output,$exitcode);
 		}
 	} elseif($_GET["job"] != "") {
 		if(file_exists("files/".$_GET["job"])) {
 			$basename = $_GET["job"];
 			$extension = strtolower(end(explode(".", $basename)));
 			$basename = substr($basename,0,-strlen($extension)-1);
-			$pid = trim(file_get_contents("files/".$basename.'.pid'));
-			$grep = trim(exec('ps -eo pid | sed -e \'s/^[[:space:]]*//\' | grep \'^'.$pid.'$\''));
-			if ($grep != $pid) {
-				dwnLink($basename);
-			}
-			$whoami = exec('whoami');
-			$fullpath = '/var/lib/stickshift/'.$whoami.'/app-root/runtime/repo/';
-			echo '<pre id="terminal">';
-			echo '$ skeinforge '.$basename.".".$extension."\n";
-			$logtext = file_get_contents("files/".$basename.'.log');
-			echo str_replace($fullpath,"",$logtext);
-			echo '</pre>';
-			
-			if ($grep != $pid) {
-				dwnLink($basename);
-			} else {
-				echo '<script type="text/javascript">'."\n";
-				echo '<!--'."\n";
-				echo 'setInterval(function() {loadLog("'.$basename.'");},1000);'."\n";
-				echo '//-->'."\n";
-				echo '</script>'."\n";
-				echo "<noscript><p><strong>Continue:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></noscript>"."\n";
-			}
 		} else {
 			echo "<p><strong>Error:</strong> Bad job.</p>";
 		}
+	}
+	if (isset($basename)) {
+		echo '<pre id="terminal"></pre>."\n"';
+		echo '<script type="text/javascript">'."\n";
+		echo '<!--'."\n";
+		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},1000);'."\n";
+		echo '//-->'."\n";
+		echo '</script>'."\n";
+		echo "<p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
 	} else {
 		putForm();
 		?>
