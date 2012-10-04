@@ -38,7 +38,7 @@ function checkEnd(job) {
 			document.getElementById("infobox").innerHTML="File not present";
 		}
 	}
-	document.getElementById("infobox").innerHTML="Returning "+retvalue;
+	//document.getElementById("infobox").innerHTML="Returning "+retvalue;
 	return retvalue;
 }
 
