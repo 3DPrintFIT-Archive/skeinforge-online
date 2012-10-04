@@ -124,7 +124,7 @@ function dwnLink($basename) {
 			} else {
 				echo '<script type="text/javascript">'."\n";
 				echo '<!--'."\n";
-				echo 'setTimeout(function() {loadLog("'.$basename.'");},1000);'."\n";
+				echo 'setInterval(function() {loadLog("'.$basename.'");},1000);'."\n";
 				echo '//-->'."\n";
 				echo '</script>'."\n";
 				echo "<noscript><p><strong>Continue:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></noscript>"."\n";
