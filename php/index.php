@@ -64,7 +64,7 @@ function putForm() {
 			$fullpath = 'files/';
 			exec('cp -ar ../prefdir '.$fullpath.$basename.'.dir');
 			exec('echo -e "Profile Selection:\t'.$profile.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion.csv');
-			exec('../misc/run.sh '.$fullpath.$basename.'.dir '.$fullpath.$filename.' '.$fullpath.$basename.'.log > '.$fullpath.$basename.'.exit '.$fullpath.$basename.'.pid 2>&1 &',$output,$exitcode);
+			exec('../misc/run.sh '.$fullpath.$basename.'.dir '.$fullpath.$filename.' '.$fullpath.$basename.'.log '.$fullpath.$basename.'.pid > '.$fullpath.$basename.'.exit 2>&1 &',$output,$exitcode);
 		}
 	} elseif($_GET["job"] != "") {
 		if(file_exists("files/".$_GET["job"])) {
