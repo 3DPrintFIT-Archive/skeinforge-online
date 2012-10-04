@@ -22,11 +22,11 @@ function checkEnd(job) {
 		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	textfile.onreadystatechange=function() {
-		if (textfile.readyState==4 && textfile.status==200){
+		if (textfile.readyState==4 && textfile.status==200 && textfile.responseText[0]=="e"){
 			setTimeout(function(){dwnLink(job)},1000);
 		}
 	}
-	textfile.open("HEAD","files/"+job+".exit",true);
+	textfile.open("GET","files/"+job+".exit",true);
 	textfile.send();
 }
 
