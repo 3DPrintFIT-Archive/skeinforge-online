@@ -44,13 +44,13 @@ function dwnLink(job) {
 		}
 		textfile.open("HEAD","files/"+job+"_export.gcode",true);
 		textfile.send();
-		if (textfile.status == 404) {
+		if (textfile.readyState==4 && textfile.status == 404) {
 			linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
 		}
-		if (textfile.status == 200) {
+		if (textfile.readyState==4 && textfile.status == 200) {
 			linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
 		}
-		if ((textfile.status == 200) || (textfile.status == 404)) {
+		if (textfile.readyState==4 && (textfile.status == 200) || (textfile.status == 404)) {
 			document.getElementById("topDwnLink").innerHTML=linkHTML;
 			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
 			//clearInterval(dwnInterval);
