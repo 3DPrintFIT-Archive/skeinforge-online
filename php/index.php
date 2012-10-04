@@ -36,6 +36,23 @@ function dwnLink($basename) {
 	<title>Skeinforge online</title>
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script>
+	function loadLog() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function() {
+			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+				document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","files/<?php echo substr($_GET["job"],0,-strlen(end(explode(".",$_GET["job"])))-1) ?>.log",true);
+		xmlhttp.send();
+	}
+	</script>
 </head>
 <body>
 	<a href="https://github.com/3DprintFIT/skeinforge-online"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub"></a>
