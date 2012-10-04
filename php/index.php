@@ -64,6 +64,10 @@ function putForm() {
 			$fullpath = 'files/';
 			exec('cp -ar ../prefdir '.$fullpath.$basename.'.dir');
 			exec('echo -e "Profile Selection:\t'.$profile.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion.csv');
+			$columns = 2;
+			$rows = 3;
+			exec('echo -e "Number of Columns (integer):\t'.$columns.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion/'.$profile.'/multiply.cvs');
+			exec('echo -e "Number of Rows (integer):\t'.$rows.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion/'.$profile.'/multiply.cvs');
 			exec('../misc/run.sh '.$fullpath.$basename.'.dir '.$fullpath.$filename.' '.$fullpath.$basename.'.log '.$fullpath.$basename.'.pid > '.$fullpath.$basename.'.exit 2>&1 &',$output,$exitcode);
 		}
 	} elseif($_GET["job"] != "") {
