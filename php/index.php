@@ -113,17 +113,17 @@ function putForm() {
 		}
 	}
 	if (isset($basename)) {
-		echo "<p id=\"topDwnLink\"><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
-		echo '<pre id="terminal">$ skeinforge '.$basename.' '.$extension.'</pre>'."\n";
-		echo '<script type="text/javascript">'."\n";
-		echo '<!--'."\n";
-		echo 'dwnLink("'.$basename.'");'."\n";
-		echo 'dwnInterval = setInterval(function(){dwnLink("'.$basename.'")},3000);'."\n";
-		echo 'loadLog("'.$basename.'","'.$extension.'");'."\n";
-		echo 'refreshInterval = setInterval(function(){loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
-		echo '//-->'."\n";
-		echo '</script>'."\n";
-		echo "<p id=\"bottomDwnLink\"><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
+		echo "	<p id=\"topDwnLink\"><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
+		echo '	<pre id="terminal">$ skeinforge '.$basename.' '.$extension.'</pre>'."\n";
+		echo '	<script type="text/javascript">'."\n";
+		echo '	<!--'."\n";
+		echo '	dwnLink("'.$basename.'");'."\n";
+		echo '	dwnInterval = setInterval(function(){dwnLink("'.$basename.'")},3000);'."\n";
+		echo '	loadLog("'.$basename.'","'.$extension.'");'."\n";
+		echo '	refreshInterval = setInterval(function(){loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
+		echo '	//-->'."\n";
+		echo '	</script>'."\n";
+		echo "	<p id=\"bottomDwnLink\"><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
 	} else {
 		putForm();
 		?>
