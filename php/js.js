@@ -45,7 +45,7 @@ function checkEnd(job) {
 	}
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && textfile.status == 200) {
-			if (textfile.responseText == "end") {
+			if (textfile.responseText == "end\n") {
 				var errorHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
 				document.getElementById("topDwnLink").innerHTML=errorHTML;
 				document.getElementById("bottomDwnLink").innerHTML=errorHTML;
