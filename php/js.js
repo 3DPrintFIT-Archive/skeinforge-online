@@ -37,6 +37,8 @@ function checkEnd(job) {
 		} else {
 			document.getElementById("infobox").innerHTML="File not present";
 		}
+	} else {
+		document.getElementById("infobox").innerHTML="File not ready";
 	}
 	//document.getElementById("infobox").innerHTML="Returning "+retvalue;
 	return retvalue;
