@@ -50,8 +50,8 @@ function dwnLink(job) {
 			if (linkHTML!="") {
 				document.getElementById("topDwnLink").innerHTML=linkHTML;
 				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-				clearInterval(dwnInterval);
-				clearInterval(refreshInterval);
+				//clearInterval(dwnInterval);
+				//clearInterval(refreshInterval);
 			}
 		}
 		textfile.open("HEAD","files/"+job+"_export.gcode",true);
