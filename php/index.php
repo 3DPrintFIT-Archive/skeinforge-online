@@ -45,14 +45,14 @@ function putForm() {
 		xmlhttp.send();
 	}
 	function dwnLink(job) {
-		var xmlhttp;
+		var xmlhttp2;
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
+			xmlhttp2=new XMLHttpRequest();
 		} else {// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET","files/"+job+"_export.gcode",true);
-		xmlhttp.send();
+		xmlhttp2.open("GET","files/"+job+"_export.gcode",true);
+		xmlhttp2.send();
 		if (req.status == 200){
 			var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n");
 			document.getElementById("topDwnLink").innerHTML=linkHTML;
