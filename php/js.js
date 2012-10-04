@@ -34,7 +34,7 @@ function checkEnd(job) {
 }
 
 function dwnLink(job) {
-	if (1==1) {
+	if (checkEnd(job)==1) {
 		var textfile;
 		var linkHTML="";
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -52,8 +52,8 @@ function dwnLink(job) {
 		if (linkHTML!="") {
 			document.getElementById("topDwnLink").innerHTML=linkHTML;
 			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-			//clearInterval(dwnInterval);
-			//clearInterval(refreshInterval);
+			clearInterval(dwnInterval);
+			clearInterval(refreshInterval);
 		}
 	}
 }
