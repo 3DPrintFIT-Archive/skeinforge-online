@@ -1,7 +1,7 @@
 <?php
 function putForm() {
 	echo "<p>Upload your STL file (<a href=\"http://fabmetheus.crsndoo.com/wiki/index.php/Skeinforge#File_Formats\" title=\"Supported filetypes\" >or other</a>) and watch the magic.</p>";
-	echo "<form method=\"post\" enctype=\"multipart/form-data\">";
+	echo "<form action=\"/\" method=\"post\" enctype=\"multipart/form-data\">";
 	echo "	<p><input type=\"file\" name=\"file\" id=\"file\" /> <select name=\"profile\" id=\"profile\"><option value=\".none\" selected=\"selected\">Choose a profile...</option>";
 	if ($handle = opendir('../prefdir/profiles/extrusion')) {
 		$profiles = array();
