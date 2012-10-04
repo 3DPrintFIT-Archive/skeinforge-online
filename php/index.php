@@ -113,8 +113,7 @@ function putForm() {
 		}
 	}
 	if (isset($basename)) {
-		echo "<div><p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></div>\n";
-		echo "<div id=\"topDwnLink\"></div>\n";
+		echo "<p id=\"topDwnLink\"><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
 		echo '<pre id="terminal">$ skeinforge '.$basename.' '.$extension.'</pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
@@ -122,8 +121,7 @@ function putForm() {
 		echo 'refreshInterval = setInterval(function(){loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
 		echo '//-->'."\n";
 		echo '</script>'."\n";
-		echo "<div><p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></div>\n";
-		echo "<div id=\"bottomDwnLink\"></div>\n";
+		echo "<p id=\"bottomDwnLink\"><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
 	} else {
 		putForm();
 		?>
