@@ -89,8 +89,7 @@ function dwnLink($basename) {
 			$fullpath = 'files/';
 			exec('cp -ar ../prefdir '.$fullpath.$basename.'.dir');
 			exec('echo -e "Profile Selection:\t'.$profile.'" >> '.$fullpath.$basename.'.dir/profiles/extrusion.csv');
-			$skeinforge = 'python ../libs/skeinforge_application/skeinforge.py -p '.$fullpath.$basename.'.dir';
-			exec('echo `'.$skeinforge.' '.$fullpath.$filename.' > '.$fullpath.$basename.'.log && echo e > '.$fullpath.$basename.'.exit` 2>&1 &',$output,$exitcode);
+			exec('../misc/run.sh '.$fullpath.$basename.'.dir '.$fullpath.$filename.' '.$fullpath.$basename.'.log > '.$fullpath.$basename.'.exit 2>&1 &',$output,$exitcode);
 		}
 	} elseif($_GET["job"] != "") {
 		if(file_exists("files/".$_GET["job"])) {
