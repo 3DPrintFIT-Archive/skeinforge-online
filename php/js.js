@@ -14,30 +14,6 @@ function loadLog(job,ext) {
 	textfile.send();
 }
 
-function dwnLink(job) {
-	var textfile;
-	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-		textfile=new XMLHttpRequest();
-	} else {// code for IE6, IE5
-		textfile=new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	textfile.onreadystatechange=function() {
-		if (textfile.readyState==4) {
-			if (textfile.status == 200) {
-				var linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
-				document.getElementById("topDwnLink").innerHTML=linkHTML;
-				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-				clearInterval(dwnInterval);
-				clearInterval(refreshInterval);
-			} else if (textfile.status == 404) {
-				setTimeout(function(){checkEnd(job)},3000);
-			}
-		}
-	}
-	textfile.open("GET","files/"+job+"_export.gcode",true);
-	textfile.send();
-}
-
 function checkEnd(job) {
 	var textfile;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -48,14 +24,37 @@ function checkEnd(job) {
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && textfile.status == 200) {
 			if (textfile.responseText == "end\n") {
-				var errorHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
-				document.getElementById("topDwnLink").innerHTML=errorHTML;
-				document.getElementById("bottomDwnLink").innerHTML=errorHTML;
-				clearInterval(dwnInterval);
-				clearInterval(refreshInterval);
+				return 1;
+			} else {
+				return 0;
 			}
 		}
 	}
 	textfile.open("GET","files/"+job+".exit",true);
+	textfile.send();
+}
+
+function dwnLink(job) {
+	var textfile;
+	var linkHTML;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		textfile=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		textfile=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	textfile.onreadystatechange=function() {
+		if (textfile.readyState==4 && checkEnd(job)==1) {
+			if (textfile.status == 200) {
+				linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
+			} else if (textfile.status == 404) {
+				linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
+			}
+			document.getElementById("topDwnLink").innerHTML=linkHTML;
+			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
+			clearInterval(dwnInterval);
+			clearInterval(refreshInterval);
+		}
+	}
+	textfile.open("GET","files/"+job+"_export.gcode",true);
 	textfile.send();
 }
