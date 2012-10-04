@@ -103,7 +103,7 @@ function dwnLink($basename) {
 	}
 	if (isset($basename)) {
 		echo "<p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
-		echo '<pre id="terminal"></pre>'."\n";
+		echo '<pre id="terminal">$ skeinforge '.$filename.'</pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
 		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},1000);'."\n";
