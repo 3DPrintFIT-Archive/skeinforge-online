@@ -44,21 +44,6 @@ function putForm() {
 		xmlhttp.open("GET","files/"+job+".log",true);
 		xmlhttp.send();
 	}
-	function dwnLink(job) {
-		var xmlhttp2;
-		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp2=new XMLHttpRequest();
-		} else {// code for IE6, IE5
-			xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp2.open("GET","files/"+job+"_export.gcode",true);
-		xmlhttp2.send();
-		if (req.status == 200){
-			var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n");
-			document.getElementById("topDwnLink").innerHTML=linkHTML;
-			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-		}
-	}
 	</script>
 </head>
 <body>
@@ -114,7 +99,7 @@ function putForm() {
 		echo '<pre id="terminal">$ skeinforge '.$basename.' '.$extension.'</pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
-		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},3000);'."\n";
+		echo 'setInterval(function(){loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
 		//echo 'dwnLink("'.$basename.'");'."\n";
 		echo '//-->'."\n";
 		echo '</script>'."\n";
