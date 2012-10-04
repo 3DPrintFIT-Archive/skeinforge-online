@@ -55,6 +55,7 @@ function putForm() {
 			var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n";
 			document.getElementById("topDwnLink").innerHTML=linkHTML;
 			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
+			document.write("hura");
 			clearInterval(dwnInterval);
 			clearInterval(refreshInterval);
 		}
