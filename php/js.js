@@ -48,12 +48,17 @@ function dwnLink(job) {
 			if (linkHTML!="") {
 				document.getElementById("topDwnLink").innerHTML=linkHTML;
 				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-				clearInterval(dwnInterval);
 				clearInterval(refreshInterval);
-				clearInterval(testInterval);
 			}
 		}
 		textfile.open("HEAD","files/"+job+"_export.gcode",true);
 		textfile.send();
 	}
+}
+
+
+function refresh(job,ext) {
+	loadLog(job,ext);
+	checkEnd(job);
+	dwnLink(job);
 }

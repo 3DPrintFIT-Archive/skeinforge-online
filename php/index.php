@@ -82,10 +82,8 @@ function putForm() {
 		echo '	<script type="text/javascript">'."\n";
 		echo '	<!--'."\n";
 		echo '	var ended = 0;'."\n";
-		echo '	dwnInterval = setInterval(function(){dwnLink("'.$basename.'")},3000);'."\n";
 		echo '	loadLog("'.$basename.'","'.$extension.'");'."\n";
-		echo '	refreshInterval = setInterval(function(){loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
-		echo '	testInterval = setInterval(function(){checkEnd("'.$basename.'")},3000);'."\n";
+		echo '	refreshInterval = setInterval(function(){refresh("'.$basename.'","'.$extension.'")},3000);'."\n";
 		echo '	//-->'."\n";
 		echo '	</script>'."\n";
 		echo "	<p id=\"bottomDwnLink\"><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
