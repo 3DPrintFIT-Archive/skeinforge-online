@@ -1,35 +1,59 @@
 function loadLog(job,ext) {
-	var xmlhttp;
+	var textfile;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp=new XMLHttpRequest();
+		textfile=new XMLHttpRequest();
 	} else {// code for IE6, IE5
-		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	xmlhttp.onreadystatechange=function() {
-		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-			document.getElementById("terminal").innerHTML="$ skeinforge "+job+"."+ext+"\n"+xmlhttp.responseText;
+	textfile.onreadystatechange=function() {
+		if (textfile.readyState==4 && textfile.status==200) {
+			document.getElementById("terminal").innerHTML="$ skeinforge "+job+"."+ext+"\n"+textfile.responseText;
 		}
 	}
-	xmlhttp.open("GET","files/"+job+".log",true);
-	xmlhttp.send();
+	textfile.open("GET","files/"+job+".log",true);
+	textfile.send();
 }
 
 function dwnLink(job) {
-	var xmlhttp;
+	var textfile;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp=new XMLHttpRequest();
+		textfile=new XMLHttpRequest();
 	} else {// code for IE6, IE5
-		xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
+		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	xmlhttp.onreadystatechange=function() {
-		if (xmlhttp.readyState==4 && xmlhttp.status == 200){
-			var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n";
+	textfile.onreadystatechange=function() {
+		if (textfile.readyState==4 && textfile.status == 200) {
+			var linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
 			document.getElementById("topDwnLink").innerHTML=linkHTML;
 			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
 			clearInterval(dwnInterval);
 			clearInterval(refreshInterval);
+		} else {
+			checkEnd(job);
 		}
 	}
-	xmlhttp.open("GET","files/"+job+"_export.gcode",true);
-	xmlhttp.send();
+	textfile.open("GET","files/"+job+"_export.gcode",true);
+	textfile.send();
+}
+
+function checkEnd(job) {
+	var textfile;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		textfile=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		textfile=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	textfile.onreadystatechange=function() {
+		if (textfile.readyState==4 && textfile.status == 200) {
+			if (textfile.responseText == "end") {
+				var errorHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
+				document.getElementById("topDwnLink").innerHTML=errorHTML;
+				document.getElementById("bottomDwnLink").innerHTML=errorHTML;
+				clearInterval(dwnInterval);
+				clearInterval(refreshInterval);
+			}
+		}
+	}
+	textfile.open("GET","files/"+job+".exit",true);
+	textfile.send();
 }
