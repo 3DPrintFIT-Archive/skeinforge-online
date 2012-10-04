@@ -23,7 +23,7 @@ function checkEnd(job) {
 	} else {// code for IE6, IE5
 		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	textfile.open("GET","files/"+job+".exit",true);
+	textfile.open("HEAD","files/"+job+".exit",true);
 	textfile.send();
 	if (textfile.readyState==4 && textfile.status == 200) {
 		document.getElementById("infobox").innerHTML="The file exists";
@@ -36,7 +36,6 @@ function checkEnd(job) {
 	} else {
 		document.getElementById("infobox").innerHTML="File files/"+job+".exit not present/ready";
 	}
-	//document.getElementById("infobox").innerHTML="Returning "+retvalue;
 	return retvalue;
 }
 
