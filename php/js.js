@@ -15,6 +15,7 @@ function loadLog(job,ext) {
 }
 
 function checkEnd(job) {
+	document.getElementById("infobox").innerHTML="Checking end of the job";
 	var textfile;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 		textfile=new XMLHttpRequest();
@@ -23,13 +24,20 @@ function checkEnd(job) {
 	}
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && textfile.status == 200) {
+			document.getElementById("infobox").innerHTML="The file exists";
 			if (textfile.responseText[0] == "e") {
+				document.getElementById("infobox").innerHTML="The file contains end mark";
 				return 1;
+			} else {
+				document.getElementById("infobox").innerHTML="Doesn't contain end mark";
 			}
+		} else {
+			document.getElementById("infobox").innerHTML="File not present";
 		}
 	}
 	textfile.open("GET","files/"+job+".exit",true);
 	textfile.send();
+	document.getElementById("infobox").innerHTML="Returning zero";
 	return 0;
 }
 
