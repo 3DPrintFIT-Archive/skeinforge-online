@@ -47,10 +47,8 @@ function putForm() {
 			putForm();
 		} elseif (!in_array($extension, $allowedExts)) {
 			echo "<p><strong>Error:</strong> Not a <a href=\"http://fabmetheus.crsndoo.com/wiki/index.php/Skeinforge#File_Formats\" title=\"Supported filetypes\" >supported file</a>.</p>";
-			putForm();
 		} elseif ($profile == ".none") {
 			echo "<p><strong>Error:</strong> Select a profile!</p>";
-			putForm();
 		} else {
 			$counter = 0;
 			$basename = str_replace(" ","_",substr($_FILES["file"]["name"],0,-strlen($extension))).$counter;
