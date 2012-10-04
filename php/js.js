@@ -29,7 +29,7 @@ function dwnLink(job) {
 			clearInterval(dwnInterval);
 			clearInterval(refreshInterval);
 		} else {
-			checkEnd(job);
+			setTimeout(function(){checkEnd(job)},3000);
 		}
 	}
 	textfile.open("GET","files/"+job+"_export.gcode",true);
