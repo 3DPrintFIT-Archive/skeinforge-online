@@ -23,8 +23,7 @@ function checkEnd(job) {
 	}
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && textfile.status==200){
-			//ended = 1;
-			document.write("jetam")
+			ended = 1;
 		}
 	}
 	textfile.open("HEAD","files/"+job+".exit",true);
