@@ -111,7 +111,7 @@ function putForm() {
 	if (isset($basename)) {
 		echo "<div><p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></div>\n";
 		echo "<div id=\"topDwnLink\"></div>\n";
-		echo '<pre id="terminal">$ skeinforge '.$filename.'</pre>'."\n";
+		echo '<pre id="terminal">$ skeinforge '.$basename.' '.$extension.'</pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
 		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},3000);'."\n";
