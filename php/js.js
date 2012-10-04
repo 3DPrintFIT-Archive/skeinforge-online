@@ -40,6 +40,7 @@ function checkEnd(job) {
 	}
 	textfile.open("GET","files/"+job+".exit",true);
 	textfile.send();
+	document.getElementById("infobox").innerHTML="Returning "+retvalue;
 	return retvalue;
 }
 
