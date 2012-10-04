@@ -115,7 +115,7 @@ function putForm() {
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
 		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},3000);'."\n";
-		echo 'dwnLink("'.$basename.'");'."\n";
+		//echo 'dwnLink("'.$basename.'");'."\n";
 		echo '//-->'."\n";
 		echo '</script>'."\n";
 		echo "<div><p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></div>\n";
