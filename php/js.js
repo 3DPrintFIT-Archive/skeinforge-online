@@ -23,7 +23,7 @@ function checkEnd(job) {
 	} else {// code for IE6, IE5
 		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	textfile.open("HEAD","files/"+job+".exit",true);
+	textfile.open("GET","files/"+job+".exit",true);
 	textfile.send();
 	if (textfile.readyState==4 && textfile.status == 200) {
 		document.getElementById("infobox").innerHTML="The file exists";
@@ -40,7 +40,7 @@ function checkEnd(job) {
 }
 
 function dwnLink(job) {
-	if (checkEnd(job)==1) {
+	if (checkEnd(job)==0) {
 		var textfile;
 		var linkHTML="";
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -58,8 +58,8 @@ function dwnLink(job) {
 		if (linkHTML!="") {
 			document.getElementById("topDwnLink").innerHTML=linkHTML;
 			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-			clearInterval(dwnInterval);
-			clearInterval(refreshInterval);
+			//clearInterval(dwnInterval);
+			//clearInterval(refreshInterval);
 		}
 	}
 }
