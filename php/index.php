@@ -117,7 +117,9 @@ function putForm() {
 		echo '<pre id="terminal">$ skeinforge '.$basename.' '.$extension.'</pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
+		echo 'dwnLink("'.$basename.'");'."\n";
 		echo 'dwnInterval = setInterval(function(){dwnLink("'.$basename.'")},3000);'."\n";
+		echo 'loadLog("'.$basename.'","'.$extension.'");'."\n";
 		echo 'refreshInterval = setInterval(function(){loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
 		echo '//-->'."\n";
 		echo '</script>'."\n";
