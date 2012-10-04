@@ -19,14 +19,6 @@ function putForm() {
 	echo "</select> <input type=\"submit\" name=\"submit\" value=\"Upload\" /></p>";
 	echo "</form>";
 }
-
-function dwnLink($basename) {
-	if (file_exists("files/".$basename.'_export.gcode')) {
-		echo "<p><strong>Download:</strong> <a href=\"files/".$basename ."_export.gcode\">".$basename ."_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>";
-	} else {
-		echo "<p><strong>Error:</strong> The process ended without gcode, see the log for more information.</p>";
-	}
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -51,6 +43,21 @@ function dwnLink($basename) {
 		}
 		xmlhttp.open("GET","files/"+job+".log",true);
 		xmlhttp.send();
+	}
+	function dwnLink(job) {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.open("GET","files/"+job+"_export.gcode",true);
+		xmlhttp.send();
+		if (req.status == 200){
+			var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n");
+			document.getElementById("topDwnLink").innerHTML=linkHTML;
+			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
+		}
 	}
 	</script>
 </head>
@@ -102,14 +109,17 @@ function dwnLink($basename) {
 		}
 	}
 	if (isset($basename)) {
-		echo "<p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
+		echo "<div><p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></div>\n";
+		echo "<div id=\"topDwnLink\"></div>\n";
 		echo '<pre id="terminal">$ skeinforge '.$filename.'</pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
-		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},1000);'."\n";
+		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},3000);'."\n";
+		echo 'dwnLink("'.$basename.'");'."\n";
 		echo '//-->'."\n";
 		echo '</script>'."\n";
-		echo "<p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p>\n";
+		echo "<div><p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></div>\n";
+		echo "<div id=\"bottomDwnLink\"></div>\n";
 	} else {
 		putForm();
 		?>
