@@ -1,5 +1,3 @@
-ended = 0;
-
 function loadLog(job,ext) {
 	var textfile;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
