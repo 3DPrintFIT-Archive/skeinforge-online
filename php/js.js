@@ -1,3 +1,5 @@
+ended = 0;
+
 function loadLog(job,ext) {
 	var textfile;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -24,17 +26,16 @@ function checkEnd(job) {
 	}
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && textfile.status==200){
-			willreturn = 1;
+			ended = 1;
 		}
 	}
 	textfile.open("HEAD","files/"+job+".exit",true);
 	textfile.send();
-	return willreturn;
 }
 
 
 function dwnLink(job) {
-	if (1==1) {
+	if (ended==1) {
 		var textfile;
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			textfile=new XMLHttpRequest();
@@ -44,16 +45,14 @@ function dwnLink(job) {
 		textfile.onreadystatechange=function() {
 			if (textfile.readyState==4 && textfile.status == 200){
 				var linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
-				clearInterval(dwnInterval);
-				clearInterval(refreshInterval);
 			} else {
 				linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
 			}
 			if (linkHTML!="") {
 				document.getElementById("topDwnLink").innerHTML=linkHTML;
 				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-				//clearInterval(dwnInterval);
-				//clearInterval(refreshInterval);
+				clearInterval(dwnInterval);
+				clearInterval(refreshInterval);
 			}
 		}
 		textfile.open("HEAD","files/"+job+"_export.gcode",true);
