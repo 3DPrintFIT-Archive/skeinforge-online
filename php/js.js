@@ -44,9 +44,9 @@ function dwnLink(job) {
 	}
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && checkEnd(job)==1) {
-			if (textfile.status == 404) {
+			/*if (textfile.status == 404) {
 				linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
-			}
+			}*/
 			if (textfile.status == 200) {
 				linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
 			}
