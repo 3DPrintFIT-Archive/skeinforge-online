@@ -55,6 +55,8 @@ function putForm() {
 			var linkHTML = "<p><strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.</p>\n";
 			document.getElementById("topDwnLink").innerHTML=linkHTML;
 			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
+			clearInterval(dwnInterval);
+			clearInterval(refreshInterval);
 		}
 		xmlhttp.open("GET","files/"+job+"_export.gcode",true);
 		xmlhttp.send();
@@ -114,7 +116,8 @@ function putForm() {
 		echo '<pre id="terminal">$ skeinforge '.$basename.' '.$extension.'</pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
-		echo 'setInterval(function(){dwnLink("'.$basename.'");loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
+		echo 'dwnInterval = setInterval(function(){dwnLink("'.$basename.'")},3000);'."\n";
+		echo 'refreshInterval = setInterval(function(){loadLog("'.$basename.'","'.$extension.'")},3000);'."\n";
 		echo '//-->'."\n";
 		echo '</script>'."\n";
 		echo "<div><p><strong>Permalink:</strong> <a href=\"/?job=".$basename.".".$extension."\">".$basename.".".$extension."</a></p></div>\n";
