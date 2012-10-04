@@ -50,6 +50,7 @@ function dwnLink(job) {
 				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
 				clearInterval(dwnInterval);
 				clearInterval(refreshInterval);
+				clearInterval(testInterval);
 			}
 		}
 		textfile.open("HEAD","files/"+job+"_export.gcode",true);
