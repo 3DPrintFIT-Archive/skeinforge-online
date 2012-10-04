@@ -23,8 +23,7 @@ function checkEnd(job) {
 	}
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && textfile.status == 200) {
-			document.write(textfile.responseText[1]);
-			if (textfile.responseText == "end\n") {
+			if (textfile.responseText[0] == "e") {
 				return 1;
 			}
 		}
