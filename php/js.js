@@ -23,23 +23,21 @@ function checkEnd(job) {
 	} else {// code for IE6, IE5
 		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	textfile.onreadystatechange=function() {
-		if (textfile.readyState==4) {
-			if (textfile.status == 200) {
-				document.getElementById("infobox").innerHTML="The file exists";
-				if (textfile.responseText[0] == "e") {
-					document.getElementById("infobox").innerHTML="The file contains end mark";
-					retvalue = 1;
-				} else {
-					document.getElementById("infobox").innerHTML="Doesn't contain end mark";
-				}
-			} else {
-				document.getElementById("infobox").innerHTML="File not present";
-			}
-		}
-	}
 	textfile.open("GET","files/"+job+".exit",true);
 	textfile.send();
+	if (textfile.readyState==4) {
+		if (textfile.status == 200) {
+			document.getElementById("infobox").innerHTML="The file exists";
+			if (textfile.responseText[0] == "e") {
+				document.getElementById("infobox").innerHTML="The file contains end mark";
+				retvalue = 1;
+			} else {
+				document.getElementById("infobox").innerHTML="Doesn't contain end mark";
+			}
+		} else {
+			document.getElementById("infobox").innerHTML="File not present";
+		}
+	}
 	document.getElementById("infobox").innerHTML="Returning "+retvalue;
 	return retvalue;
 }
