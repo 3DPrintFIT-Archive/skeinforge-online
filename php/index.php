@@ -102,7 +102,7 @@ function dwnLink($basename) {
 		}
 	}
 	if (isset($basename)) {
-		echo '<pre id="terminal"></pre>."\n"';
+		echo '<pre id="terminal"></pre>'."\n";
 		echo '<script type="text/javascript">'."\n";
 		echo '<!--'."\n";
 		echo 'setInterval(function() {loadLog("'.$basename.'","'.$extension.'");},1000);'."\n";
