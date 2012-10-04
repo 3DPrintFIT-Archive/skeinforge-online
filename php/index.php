@@ -100,7 +100,6 @@ function putForm() {
 	<p>This service is BETA! It is provided as is and without any express or implied warranties, including, without limitation, the implied warranties of merchantability and fitness for a particular purpose. Uploaded files aren't protected, anyone can steel them.</p>
 	<h2>TODO</h2>
 	<ul>
-		<li>Support multiply</li>
 		<li>List processes</li>
 		<li>Support user uploaded profiles</li>
 		<li>Security :P</li>
