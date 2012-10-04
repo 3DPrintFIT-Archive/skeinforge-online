@@ -94,10 +94,10 @@ function putForm() {
 	<p>This service is BETA! It is provided as is and without any express or implied warranties, including, without limitation, the implied warranties of merchantability and fitness for a particular purpose. Uploaded files aren't protected, anyone can steel them.</p>
 	<h2>TODO</h2>
 	<ul>
+		<li>Determinate end of the process</li>
 		<li>Support multiply</li>
 		<li>Support user uploaded profiles</li>
 		<li>Security :P</li>
-		<li>Ajax?</li>
 	</ul>
 	<?php } ?>
 	<p><a href="http://fabmetheus.crsndoo.com/wiki/index.php/Skeinforge">Skeinforge</a> &copy; Enrique Perez (AGPLv3)<br />This service &copy; <a href="http://hroncok.cz/">Miro Hrončok</a>, <a href="https://3dprint.fit.cvut.cz/">3D Print Lab FIT CTU</a></p>
