@@ -39,7 +39,7 @@ function checkEnd(job) {
 	return retvalue;
 }
 
-function dwnLink(job) {
+/*function dwnLink(job) {
 	if (checkEnd(job)==0) {
 		var textfile;
 		var linkHTML="";
@@ -62,5 +62,28 @@ function dwnLink(job) {
 			//clearInterval(refreshInterval);
 		}
 	}
-}
+}*/
 
+function dwnLink(job) {
+	var xmlhttp;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.readyState==4 && xmlhttp.status == 200){
+			var linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
+		} else {
+			linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
+		}
+		if (linkHTML!="") {
+			document.getElementById("topDwnLink").innerHTML=linkHTML;
+			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
+			//clearInterval(dwnInterval);
+			//clearInterval(refreshInterval);
+		}
+	}
+	xmlhttp.open("GET","files/"+job+"_export.gcode",true);
+	xmlhttp.send();
+}
