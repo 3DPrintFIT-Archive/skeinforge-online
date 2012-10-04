@@ -23,7 +23,7 @@ function checkEnd(job) {
 	}
 	textfile.onreadystatechange=function() {
 		if (textfile.readyState==4 && textfile.status==200){
-			ended = 1;
+			setTimeout(function(){dwnLink(job)},1000);
 		}
 	}
 	textfile.open("HEAD","files/"+job+".exit",true);
@@ -32,33 +32,30 @@ function checkEnd(job) {
 
 
 function dwnLink(job) {
-	if (ended==1) {
-		var textfile;
-		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			textfile=new XMLHttpRequest();
-		} else {// code for IE6, IE5
-			textfile=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		textfile.onreadystatechange=function() {
-			if (textfile.readyState==4 && textfile.status == 200){
-				var linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
-			} else {
-				linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
-			}
-			if (linkHTML!="") {
-				document.getElementById("topDwnLink").innerHTML=linkHTML;
-				document.getElementById("bottomDwnLink").innerHTML=linkHTML;
-				clearInterval(refreshInterval);
-			}
-		}
-		textfile.open("HEAD","files/"+job+"_export.gcode",true);
-		textfile.send();
+	var textfile;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		textfile=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
+	textfile.onreadystatechange=function() {
+		if (textfile.readyState==4 && textfile.status == 200){
+			var linkHTML = "<strong>Download:</strong> <a href=\"files/"+job+"_export.gcode\">"+job+"_export.gcode</a> &mdash; Your files will be deleted in 24 hours.";
+		} else {
+			linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
+		}
+		if (linkHTML!="") {
+			document.getElementById("topDwnLink").innerHTML=linkHTML;
+			document.getElementById("bottomDwnLink").innerHTML=linkHTML;
+			clearInterval(refreshInterval);
+		}
+	}
+	textfile.open("HEAD","files/"+job+"_export.gcode",true);
+	textfile.send();
 }
 
 
 function refresh(job,ext) {
 	loadLog(job,ext);
 	checkEnd(job);
-	dwnLink(job);
 }
