@@ -42,7 +42,7 @@ function dwnLink(job) {
 		textfile=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	textfile.onreadystatechange=function() {
-		if (textfile.readyState==4 && checkEnd(job)) {
+		if (textfile.readyState==4 && checkEnd(job)==1) {
 			if (textfile.status == 404) {
 				linkHTML = "<strong>Error:</strong> The procces ended without gcode, see the log";
 			}
