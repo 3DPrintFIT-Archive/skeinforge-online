@@ -34,7 +34,7 @@ function checkEnd(job) {
 
 
 function dwnLink(job) {
-	if (checkEnd(job)==1) {
+	if (1==1) {
 		var textfile;
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			textfile=new XMLHttpRequest();
