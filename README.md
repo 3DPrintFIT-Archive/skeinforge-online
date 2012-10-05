@@ -3,7 +3,7 @@ skeinforge-online
 
 Online skeinforge running on OpenShift. Very dirty PHP code, we were just wondering, if it works.
 
-The app itself can be found on http://skeinforgeonline.com/ running on OpenShift.
+The app itself can be found on http://www.skeinforgeonline.com/ running on OpenShift.
 
 Pushing
 =======
