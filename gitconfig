@@ -15,7 +15,7 @@
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master
-[submodule "libs"]
+[submodule "libs/skeinforge"]
 	url = git://github.com/makerbot/skeinforge.git
 [submodule "prefdir"]
 	url = git://github.com/3DprintFIT/3DPrintFIT-skeing.git
