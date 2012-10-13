@@ -14,3 +14,5 @@ grep -v '^Profile Selection:' extrusion.csv > extrusion.csv2
 mv extrusion.csv2 extrusion.csv
 find extrusion -type f -name multiply.csv -exec $HOME/app-root/runtime/repo/misc/rmmultiply.sh {} \;
 
+# Link the lib
+ln -s /usr/lib64/libbz2.so $HOME/app-root/runtime/repo/libs/libbz2.so.1.0
