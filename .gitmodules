@@ -1,6 +1,3 @@
-[submodule "libs"]
-	path = libs
-	url = git://github.com/makerbot/skeinforge.git
 [submodule "prefdir"]
 	path = prefdir
 	url = git://github.com/3DprintFIT/3DPrintFIT-skeing.git
