@@ -5,3 +5,6 @@
 [submodule "libs/skeinforge"]
 	path = libs/skeinforge
 	url = git://github.com/makerbot/skeinforge.git
+[submodule "libs/pypy"]
+	path = libs/pypy
+	url = git://github.com/hroncok/pypy-bin.git
