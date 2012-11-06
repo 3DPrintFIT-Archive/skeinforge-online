@@ -25,3 +25,4 @@ To push to both of them:
     git push all
 
 Pushing to OpenShift kills all processes, check noone is using the service!
+
