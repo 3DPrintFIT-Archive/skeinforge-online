@@ -5,7 +5,7 @@
 
 # Create files dir
 cd $HOME/app-root/runtime/repo/php/
-ls -l ../../data files
+ln -s ../../data files
 chmod 777 ../../data
 chmod 777 files
 
